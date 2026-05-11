@@ -1,0 +1,16 @@
+import pandas as pd
+
+numbers = list(map(int, input().split()))
+
+s = pd.Series(numbers)
+
+grouped = s.groupby(s % 2).mean()
+
+# Rename correctly
+grouped = grouped.rename({1: 'Odd', 0: 'Even'})
+
+# Reorder to match output (Odd first, then Even)
+grouped = grouped.reindex(['Odd', 'Even']).dropna()
+
+print("Mean of even and odd numbers:")
+print(grouped)
